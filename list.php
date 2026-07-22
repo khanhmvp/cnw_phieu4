@@ -39,11 +39,14 @@ $rows = db() ->query('SELECT id, name, description, create_at FROM categories or
             border: 1px solid #2e6da4;
             border-radius: 4px;
         }
+        .action{
+            display: flex;
+            align-items: center;}
         </style>
 </head>
 <body>
     <h2>Danh sách danh mục</h2>
-    <a href="create.php" class="btn">Thêm danh mục</a>
+    <a href="create.php" class="btn-add">Them danh muc moi</a>
     <table>
         <thead>
             <tr>
@@ -51,6 +54,7 @@ $rows = db() ->query('SELECT id, name, description, create_at FROM categories or
                 <th>Tên danh mục</th>
                 <th>Mô tả</th>
                 <th>Ngày tạo</th>
+                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
@@ -60,6 +64,13 @@ $rows = db() ->query('SELECT id, name, description, create_at FROM categories or
                 <td><?= htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($row['description'], ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($row['create_at'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td class="actions">
+                    < href="edit.php?id=<?= $row['id'] ?>" class="btn-edit"Sua</a>
+                    <form method ="POST" action="delete.php" onsubmit="return confirm('Ban co chac muon xoa danh muc nay?');">
+                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                        <button type="submit" class="btn-delete">Xoa</button>
+                    </form>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
